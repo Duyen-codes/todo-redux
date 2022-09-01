@@ -4,11 +4,13 @@ const initialState = [
   {
     content: "reducer defines how redux store works",
     complete: true,
+    votes: 0,
     id: 1,
   },
   {
     content: "state of store can contain any data",
     complete: false,
+    votes: 0,
     id: 2,
   },
 ];
@@ -25,9 +27,18 @@ const taskSlice = createSlice({
       state.push({
         content,
         complete: false,
+        votes: 0,
         id: generateId(),
       });
     },
+
+    addVote(state, action) {
+      const id = action.payload;
+      const taskToChange = state.find((n) => n.id === id);
+      const changedTask = { ...taskToChange, votes: taskToChange.votes + 1 };
+      return state.map((task) => (task.id !== id ? task : changedTask));
+    },
+
     toggleCompleteOf(state, action) {
       const id = action.payload;
       const taskToChange = state.find((n) => n.id === id);
@@ -42,5 +53,6 @@ const taskSlice = createSlice({
   },
 });
 
-export const { createTask, toggleCompleteOf, removeTask } = taskSlice.actions;
+export const { createTask, toggleCompleteOf, removeTask, addVote } =
+  taskSlice.actions;
 export default taskSlice.reducer;
