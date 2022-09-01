@@ -1,10 +1,14 @@
+import { useDispatch } from "react-redux";
 import "./App.css";
 import NewTask from "./components/NewTask";
 import TaskList from "./components/TaskList";
+import { setFilter } from "./reducers/filterReducer";
 
 function App() {
+  const dispatch = useDispatch();
   const filterSelected = (value) => {
     console.log("SELECTED VALUE: ", value);
+    dispatch(setFilter(value));
   };
   return (
     <div className="App">

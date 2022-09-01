@@ -7,12 +7,14 @@ import { configureStore } from "@reduxjs/toolkit";
 
 // import taskReducer
 import taskReducer from "./reducers/taskReducer";
+import filterReducer from "./reducers/filterReducer";
 
 // instead of Redux's createStore function, create store using Redux Toolkit's configureStore function
 
 const store = configureStore({
   reducer: {
     tasks: taskReducer,
+    filter: filterReducer,
   },
 });
 console.log("STORE OBJECT NOW: ", store.getState());

@@ -6,7 +6,17 @@ import { toggleCompleteOf, removeTask, addVote } from "../reducers/taskReducer";
 const TaskList = () => {
   // the component access the tasks stored in the store with useSelector hook of react-redux library
   const dispatch = useDispatch();
-  const tasks = useSelector((state) => state.tasks);
+
+  const filter = useSelector((state) => state.filter);
+
+  const tasks = useSelector((state) => {
+    if (state.filter === "ALL") {
+      return state.tasks;
+    }
+    return filter === "COMPLETED"
+      ? state.tasks.filter((task) => task.complete)
+      : state.tasks.filter((task) => !task.complete);
+  });
 
   return (
     <ul>
